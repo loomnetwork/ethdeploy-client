@@ -1,0 +1,15 @@
+language: go
+go:
+  - 1.9
+  - tip
+install:
+  - go get github.com/Masterminds/glide
+  - go get github.com/golang/lint/golint
+before_script:
+script:
+  - glide install
+  - go build .
+#  - go test $(glide novendor)
+#  - go vet . ./tftp
+#  - golint .
+#  - golint tftp

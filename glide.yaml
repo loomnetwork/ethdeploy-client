@@ -1,0 +1,5 @@
+package: github.com/loomnetwork/client
+import:
+- package: gopkg.in/alecthomas/kingpin.v2
+  version: v2.2.5
+- package: gopkg.in/yaml.v2
