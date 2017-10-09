@@ -10,6 +10,9 @@ script:
 - glide install
 - go build -o loom-linux-x64-$TRAVIS_TAG .
 - GOOS=darwin GOARCH=amd64 go build -o loom-osx-x64-$TRAVIS_TAG .
+- chmod +x loom-osx-x64-$TRAVIS_TAG
+- chmod +x loom-linux-x64-$TRAVIS_TAG
+
 deploy:
   provider: releases
   skip_cleanup: true
