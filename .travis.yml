@@ -8,7 +8,7 @@ install:
 before_script:
 script:
   - glide install
-  - go build .
+  - go build -o loom .
 #  - go test $(glide novendor)
 #  - go vet . ./tftp
 #  - golint .
