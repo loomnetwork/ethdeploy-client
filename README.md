@@ -18,3 +18,8 @@ brew install loomnetwork/homebrew-client/loom
 ## Install via Wget (Linux/OSX)
 
 # Building 
+
+```
+glide install
+go build -o loom .
+```
