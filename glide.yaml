@@ -3,3 +3,4 @@ import:
 - package: gopkg.in/alecthomas/kingpin.v2
   version: v2.2.5
 - package: gopkg.in/yaml.v2
+- package: github.com/n-marshall/oauth2-noserver
