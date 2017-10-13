@@ -1,5 +1,5 @@
-hash: 678f54926e174e90a2b6ea6a182f5a662c70d18fcb143768ad702e860324319d
-updated: 2017-10-13T16:53:29.678389621+07:00
+hash: b745910ee7972a345e03ea29cb4a5bd11bd285f952cda43704ecadc2844dffd2
+updated: 2017-10-13T23:30:49.969980617+07:00
 imports:
 - name: github.com/alecthomas/template
   version: a0175ee3bccc567396460bf5acd36800cb10c49c
@@ -13,14 +13,14 @@ imports:
   version: 130e6b02ab059e7b717a096f397c5b60111cae74
   subpackages:
   - proto
+- name: github.com/loomnetwork/oauth2-noserver
+  version: 540b1c7e167525d7d91d3c5b85ad7c788ff1b9ae
 - name: github.com/mattn/go-colorable
   version: 5411d3eea5978e6cdc258b30de592b60df6aba96
   repo: https://github.com/mattn/go-colorable
 - name: github.com/mattn/go-isatty
   version: 57fdcb988a5c543893cc61bce354a6e24ab70022
   repo: https://github.com/mattn/go-isatty
-- name: github.com/n-marshall/oauth2-noserver
-  version: e3410fc69685764bbc90dd54b6175105975d234a
 - name: github.com/skratchdot/open-golang
   version: 75fb7ed4208cf72d323d7d02fd1a5964a7a9073c
   subpackages:
