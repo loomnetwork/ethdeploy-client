@@ -1,5 +1,5 @@
-hash: b745910ee7972a345e03ea29cb4a5bd11bd285f952cda43704ecadc2844dffd2
-updated: 2017-10-13T23:30:49.969980617+07:00
+hash: d67de7ad871a0b19f2c3c7115379e88789bfb0f415b83c7065eb74026718a873
+updated: 2017-10-14T14:25:23.585320087+07:00
 imports:
 - name: github.com/alecthomas/template
   version: a0175ee3bccc567396460bf5acd36800cb10c49c
@@ -8,7 +8,7 @@ imports:
 - name: github.com/alecthomas/units
   version: 2efee857e7cfd4f3d0138cc3cbb1b4966962b93a
 - name: github.com/fatih/color
-  version: 5df930a27be2502f99b292b7cc09ebad4d0891f4
+  version: 570b54cabe6b8eb0bc2dfce68d964677d63b5260
 - name: github.com/golang/protobuf
   version: 130e6b02ab059e7b717a096f397c5b60111cae74
   subpackages:

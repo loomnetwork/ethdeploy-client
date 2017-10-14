@@ -4,3 +4,8 @@ import:
   version: v2.2.5
 - package: gopkg.in/yaml.v2
 - package: github.com/loomnetwork/oauth2-noserver
+- package: github.com/fatih/color
+  version: ~1.5.0
+- package: github.com/skratchdot/open-golang
+  subpackages:
+  - open
