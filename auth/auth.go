@@ -1,12 +1,14 @@
-package main
+package auth
 
 import (
+	"bufio"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"os"
 	"strings"
 
 	oauth2ns "github.com/loomnetwork/oauth2-noserver"
@@ -36,8 +38,21 @@ var (
 	clientSecret = "mBd0gDHQdEwSRgt8"
 )
 
-func main() {
-
+func Login(network string) string {
+	n := strings.ToLower(network)
+	if strings.Index(n, "linkedin") >= 0 {
+		loginLinkedIn()
+	} else if strings.Index(n, "github") >= 0 {
+		loginGithub()
+	} else {
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Printf("Please enter which network you want (linkedin/github): \n")
+		text, _ := reader.ReadString('\n')
+		return Login(text)
+	}
+	return ""
+}
+func loginLinkedIn() string {
 	authURL := "https://www.linkedin.com/uas/oauth2/authorization"
 	tokenURL := "https://www.linkedin.com/uas/oauth2/accessToken"
 	scopes := []string{"r_emailaddress", "r_basicprofile"} // []string{"account"},
@@ -72,6 +87,12 @@ func main() {
 
 	fmt.Printf("%s -\n", r.Token)
 
+	//TODO return api key
+	return ""
+}
+
+func loginGithub() {
+	fmt.Printf("Attempting to login to Github\n")
 }
 
 func authValidate(token, redirectUri string) {
