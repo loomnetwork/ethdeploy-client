@@ -5,9 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"net/http"
-	"net/http/httputil"
-	"net/url"
 	"os"
 	"strings"
 
@@ -38,20 +35,27 @@ var (
 	clientSecret = "mBd0gDHQdEwSRgt8"
 )
 
-func Login(network string) string {
+func Login(network string, loomnetworkHost string) string {
 	n := strings.ToLower(network)
 	if strings.Index(n, "linkedin") >= 0 {
-		loginLinkedIn()
+		authToken := loginLinkedIn()
+		return validateLoomNetwork(authToken, loomnetworkHost)
 	} else if strings.Index(n, "github") >= 0 {
-		loginGithub()
+		authToken := loginGithub()
+		return validateLoomNetwork(authToken, loomnetworkHost)
 	} else {
 		reader := bufio.NewReader(os.Stdin)
 		fmt.Printf("Please enter which network you want (linkedin/github): \n")
 		text, _ := reader.ReadString('\n')
-		return Login(text)
+		return Login(text, loomnetworkHost)
 	}
 	return ""
 }
+
+func validateLoomNetwork(authToken, loomnetworkHost string) string {
+	return ""
+}
+
 func loginLinkedIn() string {
 	authURL := "https://www.linkedin.com/uas/oauth2/authorization"
 	tokenURL := "https://www.linkedin.com/uas/oauth2/accessToken"
@@ -87,63 +91,11 @@ func loginLinkedIn() string {
 
 	fmt.Printf("%s -\n", r.Token)
 
-	//TODO return api key
 	return ""
 }
 
-func loginGithub() {
+func loginGithub() string {
 	fmt.Printf("Attempting to login to Github\n")
-}
 
-func authValidate(token, redirectUri string) {
-	tokenURL := "https://www.linkedin.com/oauth/v2/accessToken"
-	//
-	//token := "AQR6v7_yb2i00wgW_diPb49Wu4-oBCdZyUCoTzqXm-FSPV3iBiM7oWNpfTyDCu58BTmBhsHap3m3BuoFTzrY_tGeKptGE-oxVRKmXQFbtfwLHPE28yV13WZiQQAYi97daGD5lg8NBIo7C_E-6yE"
-	//redirect_uri := "http%3A%2F%2F127.0.0.1%3A14565%2Foauth%2Fcallback&response_type=code&scope=r_emailaddress+r_basicprofile&state=state"
-	//"http://127.0.0.1:14565/oauth/callback"
-
-	hc := http.Client{}
-
-	fmt.Print(redirectUri)
-
-	form := url.Values{}
-	form.Add("grant_type", "authorization_code")
-	form.Add("redirect_uri", redirectUri)
-	form.Add("client_id", clientID)
-	form.Add("client_secret", clientSecret)
-	form.Add("code", token)
-
-	req, err := http.NewRequest("POST", tokenURL, strings.NewReader(form.Encode()))
-	if err != nil {
-		log.Fatal(err)
-	}
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	//req.ParseForm()
-	//"application/x-www-form-urlencoded"
-
-	//req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
-
-	// Save a copy of this request for debugging.
-	requestDump, err := httputil.DumpRequestOut(req, true)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(string(requestDump))
-
-	resp, err := hc.Do(req)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != 200 { // OK
-		fmt.Printf("bad response code %d\n", resp.StatusCode)
-	}
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-	bodyString := string(bodyBytes)
-	fmt.Printf(bodyString)
-
+	return ""
 }

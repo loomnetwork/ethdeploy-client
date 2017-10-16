@@ -8,12 +8,17 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+
+	"github.com/fatih/color"
 )
 
 func UploadApp(loomHost string, apikey string, filename string, slug string) {
 	targetUrl := fmt.Sprintf("%s/upload", loomHost)
 
-	fmt.Printf("Uploading file: %s, host: %s\n", filename, targetUrl)
+	fmt.Printf("Deploying %s to Loom Network... \n", filename)
+	fmt.Printf("DApp deployed to ")
+	color.Blue("https://%s.loomapps.io\n", targetUrl)
+
 	postFile(filename, targetUrl, apikey)
 }
 

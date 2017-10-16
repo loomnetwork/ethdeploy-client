@@ -29,22 +29,28 @@ var (
 var DEFAULT_HOST = "https://platform.loomx.io"
 
 func main() {
+	c := config.ReadConfig()
+	hostName := c.HostName
+	if hostName == "" {
+		hostName = DEFAULT_HOST
+	}
+
 	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
 	case login.FullCommand():
-		auth.Login(*network)
+		newapiKey := auth.Login(*network, hostName)
+		if len(newapiKey) > 0 {
+			config.WriteConfig(newapiKey)
+			fmt.Println("Api successfully set!")
+		}
 	case upload.FullCommand():
+		if c.Apikey == "" || len(c.Apikey) < 3 {
+			fmt.Println("Missing api key or api key is invalid. Please use the \"login\" command or set it with the \"setapikey\" command.")
+			return
+		}
+
 		if *zipfile == "" {
 			fmt.Println("Please supply a zipfile")
 			return
-		}
-		c := config.ReadConfig()
-		if c.Apikey == "" || len(c.Apikey) < 3 {
-			fmt.Println("Missing api key or api key is invalid. Please set it with the setapikey command.")
-			return
-		}
-		hostName := c.HostName
-		if hostName == "" {
-			hostName = DEFAULT_HOST
 		}
 		client.UploadApp(hostName, c.Apikey, *zipfile, *slug)
 	case setapikey.FullCommand():
