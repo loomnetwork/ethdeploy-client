@@ -5,9 +5,11 @@ For more info about Loom Network please see [Loom Network](https://loomx.io)
 [API Docs](https://loomx.io/docs/)
 
 ```
-loom setapikey 1234
+loom login
 loom deploy application.zip application_name
 ```
+
+Currently you can log into loom network with Github or Linkedin.
 
 ## Install via Homebrew (OSX)
 
