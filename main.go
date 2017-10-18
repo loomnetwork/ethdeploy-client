@@ -41,6 +41,8 @@ func main() {
 		if len(newapiKey) > 0 {
 			config.WriteConfig(newapiKey)
 			fmt.Println("Api successfully set!")
+		} else {
+			fmt.Println("Failed logging in.")
 		}
 	case upload.FullCommand():
 		if c.Apikey == "" || len(c.Apikey) < 3 {
