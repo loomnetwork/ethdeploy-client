@@ -65,7 +65,7 @@ func Login(network string, loomnetworkHost string) string {
 
 func validateLoomNetwork(loomnetworkHost string, c *http.Client, network string) string {
 	u, err := url.Parse(loomnetworkHost)
-	u.Path = path.Join(u.Path, fmt.Sprintf("/login_oauth")
+	u.Path = path.Join(u.Path, fmt.Sprintf("/login_oauth"))
 
 	resp, err := c.Post(u.String(), "application/loom", nil) // we pass auth info in headers
 	if err != nil {
