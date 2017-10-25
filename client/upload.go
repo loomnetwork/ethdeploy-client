@@ -17,7 +17,7 @@ func UploadApp(loomHost string, apikey string, filename string, slug string) {
 
 	fmt.Printf("Deploying %s to Loom Network... \n", filename)
 	fmt.Printf("DApp deployed to ")
-	color.Blue("https://%s.loomapps.io\n", targetUrl)
+	color.Blue("https://%s.loomapps.io\n", slug)
 
 	postFile(filename, targetUrl, apikey)
 }
