@@ -19,14 +19,27 @@ func UploadApp(loomHost string, apikey string, filename string, slug string) {
 	fmt.Printf("DApp deployed to ")
 	color.Blue("https://%s.loomapps.io\n", slug)
 
-	postFile(filename, targetUrl, apikey)
+	postFile(filename, targetUrl, apikey, slug)
 }
 
-func postFile(filename string, targetUrl string, apikey string) error {
+func postFile(filename, targetUrl, apikey, slug string) error {
+	client := &http.Client{}
+
+	var err error
 	bodyBuf := &bytes.Buffer{}
 	bodyWriter := multipart.NewWriter(bodyBuf)
 
-	// this step is very important
+	bodyWriter.Boundary()
+	bodyWriter.FormDataContentType()
+
+	if err = bodyWriter.WriteField("application_slug", slug); err != nil {
+		return err
+	}
+	//Lets the backend know to create a new application if it doesn't already exist
+	if err = bodyWriter.WriteField("auto_create", "true"); err != nil {
+		return err
+	}
+
 	fileWriter, err := bodyWriter.CreateFormFile("uploadfile", filename)
 	if err != nil {
 		fmt.Println("error writing to buffer")
@@ -45,11 +58,18 @@ func postFile(filename string, targetUrl string, apikey string) error {
 	if err != nil {
 		return err
 	}
-
-	contentType := bodyWriter.FormDataContentType()
 	bodyWriter.Close()
 
-	resp, err := http.Post(targetUrl, contentType, bodyBuf)
+	req, err := http.NewRequest("POST", targetUrl, bodyBuf)
+	req.Header.Set("Content-Type", bodyWriter.FormDataContentType())
+
+	//	requestDump, err := httputil.DumpRequest(req, true)
+	//	if err != nil {
+	//		fmt.Println(err)
+	//	}
+	//	fmt.Println(string(requestDump))
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return err
 	}
@@ -58,7 +78,6 @@ func postFile(filename string, targetUrl string, apikey string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(resp.Status)
 	fmt.Println(string(resp_body))
 	return nil
 }
