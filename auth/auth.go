@@ -92,6 +92,7 @@ func validateLoomNetwork(loomnetworkHost string, c *http.Client, network string)
 
 	req, err := http.NewRequest("POST", u.String(), nil)
 	req.Header.Add("Loom-Oauth-Provider", network)
+	req.Header.Add("accept", "application/json")
 	resp, err := c.Do(req)
 
 	defer resp.Body.Close()

@@ -62,6 +62,7 @@ func postFile(filename, targetUrl, apikey, slug string) error {
 
 	req, err := http.NewRequest("POST", targetUrl, bodyBuf)
 	req.Header.Set("Content-Type", bodyWriter.FormDataContentType())
+	req.Header.Add("accept", "application/json")
 
 	//	requestDump, err := httputil.DumpRequest(req, true)
 	//	if err != nil {
