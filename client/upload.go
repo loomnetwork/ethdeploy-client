@@ -62,13 +62,14 @@ func postFile(filename, targetUrl, apikey, slug string) error {
 
 	req, err := http.NewRequest("POST", targetUrl, bodyBuf)
 	req.Header.Set("Content-Type", bodyWriter.FormDataContentType())
-	req.Header.Add("accept", "application/json")
+	req.Header.Set("accept", "application/json")
+	req.Header.Set("Loom-Api-Key", apikey)
 
-	//	requestDump, err := httputil.DumpRequest(req, true)
-	//	if err != nil {
-	//		fmt.Println(err)
-	//	}
-	//	fmt.Println(string(requestDump))
+	//requestDump, err := httputil.DumpRequest(req, true)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}
+	//fmt.Println(string(requestDump))
 
 	resp, err := client.Do(req)
 	if err != nil {
